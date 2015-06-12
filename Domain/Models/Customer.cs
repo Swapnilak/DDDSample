@@ -15,14 +15,14 @@ namespace Domain.Models
         public decimal? CustomerCreditLimit { get; private set; }
 
         internal Customer(){}
-        public Customer(Guid id, string firstName, string lastName, string email, IDuplicateCustomerEmail duplicateCustomerEmail)
+        public Customer(Guid id, string firstName, string lastName, string email, ISpecification<Customer>  duplicateCustomerEmail)
         {
             CustomerId = id;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
 
-            if (duplicateCustomerEmail.IsSatisfiedBy(this))
+            if (duplicateCustomerEmail.IsSatisfiedBy(this) )
                 throw new DuplicateEmailException(email);
         }
 
